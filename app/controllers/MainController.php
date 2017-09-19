@@ -1,7 +1,13 @@
 <?php
+/*
+ * Main controller 4 user view and logging in
+ */
+
     class MainController extends Controller {
-        
+        /*
         //osnovni metod pocetne strane
+        * @param $page int
+        */
         function index($page = 0) {
             $this->set('locations', LocationModel::getAll() );
             $positions = PositionModel::getAllPaged($page);
@@ -10,6 +16,10 @@
         }
             $this->set('positions', $positions);
         }
+        
+        /*
+        * Funcion for logging onto the system, checks username and pasword against the database and sets the session
+        */
 
         public function login() {
             if (isset($_POST['loginBtn'])) {
@@ -40,13 +50,19 @@
                 }
             }
         }
+        
+        /*
+        * Logout function, redirects to homepage
+        */
         public function logout() {
             Session::end();
             Misc::redirect('login');
         }
         
-        
-        // salje view-u spisak oglasa sa lokacije sa zadatim slugom 
+        /*
+        // salje view-u spisak oglasa sa lokacije sa zadatim slugom
+        * @param string $locationSlug 
+        */
         function listByLocation($locationSlug) {
             $location = LocationModel::getBySlug($locationSlug);
             
@@ -65,6 +81,9 @@
 
         }
         
+        /* salje view-u oglas zadat slugom
+        * @param string $slug 
+        */
         function position($slug) {
             $position = PositionModel::getBySlug($slug);
             
