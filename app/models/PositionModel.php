@@ -1,6 +1,13 @@
 <?php
+/*
+ * Model for job positions
+ */
 
 class PositionModel implements ModelInterface{
+    
+    /*
+    * Return all position entries from database
+    */
     public static function getAll() {
         $SQL = 'SELECT * FROM position;';
         $prep = DataBase::getInstance()->prepare($SQL);
@@ -12,6 +19,10 @@ class PositionModel implements ModelInterface{
         }
     }
     
+    /*
+    * Return a limited number of positions from the database (4 pagination later)
+    * @param int $page
+    */
     public static function getAllPaged($page) {
         $page = max(0, $page);
         $first = $page * Configuration::ITEMS_PER_PAGE;
@@ -25,6 +36,11 @@ class PositionModel implements ModelInterface{
         }
     }
 
+    /*
+    * Return the position entry specified with an ID
+    * @param int $id 
+    * @return stdClass|NULL - vraca oglas kao objekat
+    */
     public static function getById($id) {
         $id = intval($id);
         $SQL = 'SELECT * FROM position WHERE position_id = ?;';
@@ -37,6 +53,11 @@ class PositionModel implements ModelInterface{
         }
     }
     
+    /*
+    * Return the location of position entry, specified with the position ID
+    * @param int $position_id 
+    * @return stdClass|NULL - vraca oglas kao objekat
+    */
     public static function getLocationForPositionId($position_id){
         $id = intval($position_id);
         $SQL = 'SELECT location_id FROM position WHERE position_id = ?;';
@@ -71,8 +92,7 @@ class PositionModel implements ModelInterface{
      * Get all positions advertised for a location specified with location_id
       * @param int $id ID oglasa
       * @return array
-     */
-    
+     */  
     public static function getPositionsByLocationId($id) {
         $id = intval($id);
         $SQL = 'SELECT * FROM position WHERE location_id = ?;';
@@ -117,19 +137,27 @@ class PositionModel implements ModelInterface{
         }
     }
     
-        // @return boolean
+      /* Function for editing position e ntry
+      * @return boolean
+      */
     public static function edit($id, $title, $slug, $description, $requirements, $responsibilities, $location_id){
         $SQL = 'UPDATE  position SET title = ?, slug = ?, description = ?, requirements = ?, responsibilities = ?, location_id = ? WHERE position_id = ?;';
         $prep = DataBase::getInstance()->prepare($SQL);
         return $prep->execute([$title, $slug, $description, $requirements, $responsibilities, $location_id, $id]);
     }
 
+    /*
+    * Method adds keywords to the position, sets id pairs in position_keyword table
+    */
     public static function addKeywordToPosition($position_id, $keyword_id) {
         $SQL = 'INSERT INTO position_keyword (position_id, keyword_id) VALUES (?, ?)';
         $prep = DataBase::getInstance()->prepare($SQL);
         return $prep->execute([$position_id, $keyword_id]);
     }
     
+    /*
+    * Reset keywords when editing position
+    */
     public static function deleteAllKeywords($position_id) {
         $SQL = 'DELETE FROM position_keyword WHERE position_id = ?';
         $prep = DataBase::getInstance()->prepare($SQL);
