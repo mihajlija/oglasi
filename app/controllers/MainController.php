@@ -5,7 +5,7 @@
 
     class MainController extends Controller {
         /*
-        //osnovni metod pocetne strane
+        //osnovni metod pocetne strane, lista sve oglase
         * @param $page int
         */
         function index($page = 0) {
