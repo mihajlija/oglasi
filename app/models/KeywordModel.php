@@ -1,6 +1,10 @@
 <?php
 
 
+/*
+ * Model class for keywords
+ */
+
 class KeywordModel implements ModelInterface {
    public static function getAll() {
         $SQL = 'SELECT * FROM keyword;';
@@ -13,6 +17,9 @@ class KeywordModel implements ModelInterface {
         }
     }
 
+   /*
+    * Return all keywords from the keyword table
+    */
     public static function getById($id) {
         $id = intval($id);
         $SQL = 'SELECT * FROM keyword WHERE keyword_id = ?;';
@@ -58,7 +65,9 @@ class KeywordModel implements ModelInterface {
         }
     }
     
-    // @return boolean
+    /* Function for editing keyword entry
+      * @return boolean
+      */
     public static function edit($id, $name, $slug){
         $SQL = 'UPDATE  keyword SET name = ?, slug = ? WHERE keyword_id = ?;';
         $prep = DataBase::getInstance()->prepare($SQL);
