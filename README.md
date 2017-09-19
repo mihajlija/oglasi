@@ -1,5 +1,4 @@
 # 📃Aplikacija za oglašavanje poslova
-Univerzitet Singidunum - Milica Mihajlija, 2014/202595
 
 # 1. Uvod
 ## 1.1 Cilj razvoja
