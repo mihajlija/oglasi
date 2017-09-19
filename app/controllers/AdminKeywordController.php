@@ -33,6 +33,7 @@ class AdminKeywordController extends AdminController {
     
      /** 
      * Edits keyword data if it's successfully sent via HTTP POST
+     *@param $id int
      * @return void
      */
     public function edit($id) {
