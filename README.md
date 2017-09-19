@@ -109,5 +109,5 @@ Potrebno je da i administratori i krajnji korisnici budu u mogućnosti da pristu
 
 Zbog kratkog roka za isporuku, projekat se izvodi u dve faze, pri cemu prva MVP faza treba samo da omoguci funkcionalnosti postavljanja i pregledanja oglasa.
 
-
+https://paper.dropbox.com/doc/CV-app-1NLEvhVqhZmHyMp60jvSy
 
