@@ -1,31 +1,28 @@
 <?php include 'app/views/_global/beforeContent.php'; ?>
 
-<article class="row">
-    <div class="col-xs-12">
-        <h1>Prijava na portal</h1>
-        <div class="page-content">
-            <form method="post">
-                <div class="form-group">
-                    <label for="username">Korisničko ime:</label><br>
-                    <input type="text" name="username" required class="form-control"
+ <main class="pa4 black-80 helvetica">
+        <form class="measure center" method="post">
+            <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+                <legend class="f4 fw6 ph0 mh0">Ulogujte se u administratorsku sekciju za poslodavce.</legend>
+                <div class="mt3">
+                    <label class="db fw6 lh-copy f6" for="email-address">Email</label>
+                    <input class="pa2 input-reset ba bg-transparent w-100" type="text" type="text" name="username" required class="form-control"
                            pattern="^[A-z0-9_\-\.]{4,32}$" placeholder="Unesite korisničko ime">
                 </div>
-
-                <div class="form-group">
-                    <label for="password">Lozinka:</label><br>
-                    <input type="password" name="password" required class="form-control"
+                <div class="mv3">
+                    <label class="db fw6 lh-copy f6" for="password">Password</label>
+                    <input class="b pa2 input-reset ba bg-transparent w-100" type="password" name="password" required class="form-control"
                            pattern="^.{6,255}$" placeholder="Unesite lozinku">
                 </div>
+            </fieldset>
 
-                <div class="form-group">
-                    <button name="loginBtn" type="submit" class="btn btn-primary">
+            <div class="">
+                <button name="loginBtn" type="submit" class="b ph3 no-underline pv2 input-reset bg-green white br2 ba b--none grow pointer f6 dib">
                         Prijavite se
                     </button>
-                </div>
+            </div>
             </form>
-        </div>
-    </div>
-</article>
+    </main>
 
 <?php if (isset($DATA['message'])): ?>
 <p><?php echo htmlspecialchars($DATA['message']); ?></p>
