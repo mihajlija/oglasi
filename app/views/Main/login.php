@@ -1,6 +1,6 @@
 <?php include 'app/views/_global/beforeContent.php'; ?>
  <main class="pa4 black-80 helvetica">
-        <form class="measure center" method="post" onsubmit="return validateForm();">
+        <form name="login" class="measure center" method="post" onsubmit="return validateForm();">
             <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
                 <legend class="f4 fw6 ph0 mh0">Ulogujte se u administratorsku sekciju za poslodavce.</legend>
                 <div class="mt3">
@@ -24,26 +24,18 @@
     </main>
 <script>
     function validateForm(){
-    var user = document.getElementById('username');
-    var pass = document.getElementById('password ');
+        var user = document.forms["login"]["username"].value;
+        var pass = document.forms["login"]["password"].value;
 
-
-    var form_ok = true;
-    if (user.val().length < 6){
-        form_ok = false;
-        user.style.color = "red";
-    } else {
-        user.style.color = "black";
-    }
-    
-    if (pass.val().length < 6){
-        form_ok = false;
-        pass.style.color = "red";
-    } else {
-        pass.style.color = "black";
-    }
+        if (user == "" || user.length < 6) {
+        alert("Neispravno korisnicko ime");
+        return false;
+        }
         
-    return form_ok;    
+        if (pass == "" || pass.length < 6) {
+        alert("Neispravna lozinka");
+        return false;
+        } 
     }
 </script>
 
