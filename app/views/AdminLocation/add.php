@@ -1,26 +1,25 @@
 <?php include 'app/views/_global/beforeContent.php'; ?>
 
-<article class="row">
-    <div class="col-xs-12">
-        <div class="page-content">
-            <h2>Dodavanje lokacije</h2>
-            <form method="post">
-                <label for="name">Ime lokacije</label>
-                <input type="text" name='name' id='name' required></input></br>
-                
-                <label for="slug">Slug lokacije</label>
-                <input type="text" name='slug' id='slug' required pattern='[a-z0-9\-]+'></input></br>
-                
-                <button type='submit'>Dodaj lokaciju</button>
-            </form> 
-            
-            <?php if ($DATA['message']): ?>
-            <p>
-                <?php echo htmlspecialchars($DATA['message']); ?>
-            </p>
-            <?php endif; ?>
+<main class="black-80 helvetica mw7 center pa3 pa5-ns pt4 mw7 center">
+
+        <div class="pb3">
+            <div class="w-100 mt1">
+                <h1 class="f2 f1-ns mv0">Dodavanje lokacije</h1>
+            </div>
         </div>
-    </div>
-</article>
+    <form class="measure" method="post">
+                <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+                <div class="mt3">
+                    <label for="name" class="f6 b db mb2">Ime lokacije</label>
+                    <input class="input-reset ba b--black-20 pa2 mb2 db w-100" type="text" aria-describedby="naslov" type="text" name='name' id='name' required></input>
+                </div>
+                <div class="mt3">
+                    <label  for="slug" class="f6 b db mb2">Slug</label>
+                    <input class="input-reset ba b--black-20 pa2 mb2 db w-100" aria-describedby="slug" type="text" name='slug' id='slug' required pattern='[a-z0-9\-]+'></input>
+                </div>
+                </fieldset>
+                <button type='submit' class="b ph3 no-underline pv2 input-reset bg-green white br2 ba b--none grow pointer f6 dib">Dodaj lokaciju</button>
+    </form>
+</main>
 
 <?php include 'app/views/_global/afterContent.php'; ?>

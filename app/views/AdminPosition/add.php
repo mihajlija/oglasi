@@ -12,8 +12,6 @@
         <section>
             <form class="measure" method="post">
                 <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
-                <legend class="f4 fw6 ph0 mh0">Podaci o radnom mestu</legend>
-
                 <h3 class="f4 mt5 pb2 bb b--black-80 bw2">Javni podaci</h3>
                 <small class="mb2 db">Ovi podaci ce biti dostupni svim posetiocima sajta.</small>
                 <div class="mt3">
