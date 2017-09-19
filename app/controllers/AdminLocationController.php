@@ -34,6 +34,7 @@ class AdminLocationController extends AdminController {
     
      /** 
      * Edits location data if it's successfully sent via HTTP POST
+     * @param $id
      * @return void
      */
     public function edit($id) {
