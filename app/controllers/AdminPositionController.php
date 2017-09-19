@@ -55,6 +55,7 @@ class AdminPositionController extends AdminController {
     
      /** 
      * Edits location data if it's successfully sent via HTTP POST
+     * @param $id
      * @return void
      */
     public function edit($id) {
@@ -69,7 +70,7 @@ class AdminPositionController extends AdminController {
             Misc::redirect('admin/positions/');
         }
         
-        //4 prepopulating keyword checkboxes at
+        //4 pre-populating keyword checkboxes at
         $position->keywords = PositionModel::getKeywordsforPositionId($id); //niz objekata
         $position->keyword_ids = []; //niz keyword ids iscitavamo iz niza keyword objekata
         foreach ($position->keywords as $keyword) {
@@ -77,7 +78,7 @@ class AdminPositionController extends AdminController {
         }
         
        
-        $this->set('position', $position); //showing it on the page
+        $this->set('position', $position); //4 accessing it on the page
         
         if(!$_POST) return; //Check if the user entered an ID 
         
