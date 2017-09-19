@@ -81,7 +81,7 @@
 
         }
         
-        /* salje view-u oglas zadat slugom
+        /* Single position view, salje view-u oglas zadat slugom
         * @param string $slug 
         */
         function position($slug) {
