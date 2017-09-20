@@ -1,0 +1,21 @@
+{
+    "name": "mihajlija/oglasi",
+    "description": "Aplikacija treba da omogući firmi da raspisuje konkurse za poslove i da prima prijave kandidata sa njihovim biografijama, propratnim pismima i kontakt podacima.",
+    "type" : "project",
+    "authors": [
+        {
+            "name": "Milica Mihajlija",
+            "email": "mihajlija@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : ">=7.0.0",
+        "milantex/daw" : "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mihajlija\\Oglasi\\Sys\\": "sys/",
+            "Mihajlija\\Oglasi\\App\\": "app/"
+        }
+    }
+}
