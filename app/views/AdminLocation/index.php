@@ -8,7 +8,7 @@
                 <thead>
                     <tr>
                         <td colspan="4">
-                            <?php Misc::url('admin/locations/add', 'Add new location'); ?>
+                            <?php $Misc::url('admin/locations/add', 'Add new location'); ?>
                         </td>
                     </tr>
                     <tr>
@@ -24,7 +24,7 @@
                         <td><?php echo $location->location_id; ?></td>
                         <td><?php echo htmlspecialchars($location->name); ?></td>
                         <td><?php echo htmlspecialchars($location->slug); ?></td>
-                        <td><?php Misc::url('admin/locations/edit/' . $location->location_id, 'Edit'); ?></td>
+                        <td><?php $Misc::url('admin/locations/edit/' . $location->location_id, 'Edit'); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

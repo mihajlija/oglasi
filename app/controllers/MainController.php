@@ -1,98 +1,105 @@
 <?php
-/*
+namespace Mihajlija\Oglasi\App\Controllers;
+
+use Mihajlija\Oglasi\Sys\Misc;
+use Mihajlija\Oglasi\Sys\Session;
+use Mihajlija\Oglasi\Sys\Controller;
+use Mihajlija\Oglasi\App\Models\UserModel;
+use Mihajlija\Oglasi\App\Models\LocationModel;
+use Mihajlija\Oglasi\App\Models\PositionModel;
+
+/**
  * Main controller 4 user view and logging in
  */
-
-    class MainController extends Controller {
-        /*
-        //osnovni metod pocetne strane, lista sve oglase
-        * @param $page int
-        */
-        function index($page = 0) {
-            $this->set('locations', LocationModel::getAll() );
-            $positions = PositionModel::getAllPaged($page);
-            for ($i=0;$i<count($positions);$i++) {
+class MainController extends Controller {
+    /**
+     * osnovni metod pocetne strane, lista sve oglase
+     * @param $page int
+     */
+    function index($page = 0) {
+        $this->set('locations', LocationModel::getAll());
+        $positions = PositionModel::getAllPaged($page);
+        for ($i=0;$i<count($positions);$i++) {
             $positions[$i]->location = LocationModel::getById($positions[$i]->location_id);
         }
-            $this->set('positions', $positions);
-        }
-        
-        /*
-        * Funcion for logging onto the system, checks username and pasword against the database and sets the session
-        */
+        $this->set('positions', $positions);
+    }
 
-        public function login() {
-            if (isset($_POST['loginBtn'])) {
-                $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_EMAIL);
-                $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-                
-                if (!preg_match('/^.{6,64}$/', $username) or !preg_match('/^.{6,255}$/', $password)) {
-                    $this->set('message', 'Parametri za prijavu nisu ispravni!');
-                    return;
-                }
+    /**
+     * Function for logging onto the system, checks username and password against the database and sets the session
+     */
+    public function login() {
+        if (isset($_POST['loginBtn'])) {
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_EMAIL);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-                $hash = hash('sha512', $password . Configuration::USER_SALT);
-                $password = '000000000000000000000000000000000000000000000000000';
-
-                $user = UserModel::getByUsernameAndPasswordHash($username, $hash);
-                $hash = '0000000000000000000000000000000000000000000000000000000';
-
-                if ($user) {
-                    Session::set('user_id', $user->user_id);
-                    Session::set('username', $username);
-                    Session::set('ip', filter_input(INPUT_SERVER, 'REMOTE_ADDR'));
-                    Session::set('ua', filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING));
-
-                    Misc::redirect('admin/positions');
-                } else {
-                    $this->set('message', 'Nisu dobri login parametri.');
-                    sleep(1);
-                }
+            if (!preg_match('/^.{6,64}$/', $username) or !preg_match('/^.{6,255}$/', $password)) {
+                $this->set('message', 'Parametri za prijavu nisu ispravni!');
+                return;
             }
-        }
-        
-        /*
-        * Logout function, redirects to homepage
-        */
-        public function logout() {
-            Session::end();
-            Misc::redirect('login');
-        }
-        
-        /*
-        // salje view-u spisak oglasa sa lokacije sa zadatim slugom
-        * @param string $locationSlug 
-        */
-        function listByLocation($locationSlug) {
-            $location = LocationModel::getBySlug($locationSlug);
-            
-            // If the location doesn't exist redirect the user to homepage 
-            if (!$location) {
-                Misc::redirect('');
-            }
-            
-            $this->set('locations', LocationModel::getAll() );
 
-            $positions = PositionModel::getPositionsByLocationId($location->location_id);
-            for ($i=0;$i<count($positions);$i++) {
-                $positions[$i]->location = LocationModel::getById($positions[$i]->location_id);
-            }
-            $this->set('positions', $positions);
+            $hash = hash('sha512', $password . Configuration::USER_SALT);
+            $password = '000000000000000000000000000000000000000000000000000';
 
-        }
-        
-        /* Single position view, salje view-u oglas zadat slugom
-        * @param string $slug 
-        */
-        function position($slug) {
-            $position = PositionModel::getBySlug($slug);
-            
-            //ako ne postoji element sa tim slugom vrati usera na homepage
-            if (!$position) {
-                Misc::redirect('');
+            $user = UserModel::getByUsernameAndPasswordHash($username, $hash);
+            $hash = '0000000000000000000000000000000000000000000000000000000';
+
+            if ($user) {
+                Session::set('user_id', $user->user_id);
+                Session::set('username', $username);
+                Session::set('ip', filter_input(INPUT_SERVER, 'REMOTE_ADDR'));
+                Session::set('ua', filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING));
+
+                Misc::redirect('admin/positions');
             }
-            
-            $this->set('position', $position);
-           
+
+            $this->set('message', 'Nisu dobri login parametri.');
+            sleep(1);
         }
     }
+
+    /**
+     * Logout function, redirects to home page
+     */
+    public function logout() {
+        Session::end();
+        Misc::redirect('login');
+    }
+
+    /**
+     * salje view-u spisak oglasa sa lokacije sa zadatim slugom
+     * @param string $locationSlug 
+     */
+    function listByLocation($locationSlug) {
+        $location = LocationModel::getBySlug($locationSlug);
+
+        // If the location doesn't exist redirect the user to homepage 
+        if (!$location) {
+            Misc::redirect('');
+        }
+
+        $this->set('locations', LocationModel::getAll() );
+
+        $positions = PositionModel::getPositionsByLocationId($location->location_id);
+
+        for ($i=0;$i<count($positions);$i++) {
+            $positions[$i]->location = LocationModel::getById($positions[$i]->location_id);
+        }
+
+        $this->set('positions', $positions);
+    }
+
+    /** Single position view, salje view-u oglas zadat slugom
+     * @param string $slug 
+     */
+    function position($slug) {
+        $position = PositionModel::getBySlug($slug);
+
+        //ako ne postoji element sa tim slugom vrati usera na homepage
+        if (!$position) {
+            Misc::redirect('');
+        }
+
+        $this->set('position', $position);
+    }
+}

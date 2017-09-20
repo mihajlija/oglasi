@@ -1,4 +1,6 @@
 <?php
-    class ApiController extends Controller {
-        
-    }
+namespace Mihajlija\Oglasi\Sys;
+
+class ApiController extends Controller {
+
+}

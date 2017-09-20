@@ -1,13 +1,18 @@
 <?php
-/*
-    echo hash('sha512', 'jazavac6086hgodfhgouhy98ugodfgod6');
-    exit;
- */
+    require_once './Configuration.php';
+    require_once './vendor/autoload.php';
+
+    use \Mihajlija\Oglasi\Sys\Session as Session;
+    use \Mihajlija\Oglasi\Sys\Misc as Misc;
+    use \Milantex\DAW\DataBase;
+
     ob_start();
-
-    require_once 'sys/Autoload.php';
-
+    
     Session::begin();
+    
+    # These two are only a temporary fix for class referencing problems in views
+    $SESSION = new Session();
+    $Misc = new Misc;
 
     $uriWithBase = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
     $uri = substr($uriWithBase, strlen(Configuration::BASE_PATH));
@@ -22,6 +27,7 @@
             break;
         }
     }
+
     unset($Arguments[0]);
 
     $Controller = $FoundRoute['Controller'];
@@ -33,9 +39,10 @@
         $fileName = 'app/controllers/' . $Controller . 'Controller.php';
     }
 
-    require_once $fileName;
-    $className = $Controller . 'Controller';
-    $worker = new $className;
+    $dataBase = new DataBase(\Configuration::DB_HOST, \Configuration::DB_NAME, \Configuration::DB_USER, \Configuration::DB_PASS);
+
+    $className = '\\Mihajlija\\Oglasi\\App\\Controllers\\' . $Controller . 'Controller';
+    $worker = new $className();
 
     $Method = method_exists($worker, $Method)?$Method:'index';
 

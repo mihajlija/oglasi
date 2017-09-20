@@ -1,4 +1,3 @@
-
             <footer>
                 <p>&nbsp;</p>
                 <p class="measure center">
