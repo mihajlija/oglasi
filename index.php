@@ -9,7 +9,7 @@
     ob_start();
     
     Session::begin();
-    
+
     # These two are only a temporary fix for class referencing problems in views
     $SESSION = new Session();
     $Misc = new Misc;
@@ -55,7 +55,11 @@
     if ($worker instanceof ApiController) {
         ob_clean();
         header('Content-type: application/json; charset=utf-8');
-        header('Access-Control-Allow-Origin');
+
+        $urlComponents = parse_url(\Configuration::BASE_URL);
+        $origin = $urlComponents['scheme'].'://'.$urlComponents['host'].((isset($urlComponents['port']))?':'.$urlComponents['port']:'');
+        header('Access-Control-Allow-Origin: ' . $origin);
+
         echo json_encode($DATA, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         exit;
     }
