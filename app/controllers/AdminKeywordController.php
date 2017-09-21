@@ -1,19 +1,23 @@
 <?php
+namespace Mihajlija\Oglasi\App\Controllers;
 
-/*
+use Mihajlija\Oglasi\Sys\Misc;
+use Mihajlija\Oglasi\Sys\AdminController;
+use Mihajlija\Oglasi\App\Models\KeywordModel;
+
+/**
  * Admin panel controller class for handling keywords
  */
-
 class AdminKeywordController extends AdminController {
-    
-    /*
+    /**
      * Controller method that displays all keywords
      */
     public function index() {
         $this->set('keywords', KeywordModel::getAll());
     }
     
-    /* Adds keyword data if it's succesfully sent via HTTP POST
+    /**
+     * Adds keyword data if it's successfully sent via HTTP POST
      * @return void
      */
     public function add() {
@@ -31,9 +35,9 @@ class AdminKeywordController extends AdminController {
         }
     }
     
-     /** 
+    /** 
      * Edits keyword data if it's successfully sent via HTTP POST
-     *@param $id int
+     * @param $id int
      * @return void
      */
     public function edit($id) {
@@ -42,8 +46,10 @@ class AdminKeywordController extends AdminController {
         if (!$keyword) {
             Misc::redirect('admin/keywords/');
         }
+
         $this->set('keyword', $keyword);
-        if(!$_POST) return; //Check if the user entered an ID 
+
+        if (!$_POST) return; // Check if the user entered an ID 
         
         $name = filter_input(INPUT_POST, 'name');
         $slug = filter_input(INPUT_POST, 'slug');
@@ -57,6 +63,4 @@ class AdminKeywordController extends AdminController {
             $this->set('message', "Doslo je do greske prilikom izmene podataka");
         }
     }
-    
-    
 }

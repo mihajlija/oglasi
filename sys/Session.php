@@ -1,4 +1,5 @@
 <?php
+namespace Mihajlija\Oglasi\Sys;
 
 class Session {
     public static function begin() {

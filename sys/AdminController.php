@@ -1,4 +1,5 @@
 <?php
+namespace Mihajlija\Oglasi\Sys;
 
 class AdminController extends Controller {
     public final function __pre() {

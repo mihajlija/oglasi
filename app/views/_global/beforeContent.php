@@ -10,11 +10,11 @@
         <div class="mw8 center ph4 flex flex-wrap justify-between items-center">
             <h1 class="flex"><img src="https://icon.now.sh/business_center/ffffff/32" class="mr3" alt="logo">Nađi posao</h1>
             <nav class="f6 fw6 ttu tracked">
-                <?php if (Session::exists('user_id')): ?>
-                        <?php include 'app/views/_global/menu-session.php'; ?>
-                    <?php else: ?>
-                        <?php include 'app/views/_global/menu-no-session.php'; ?>
-                    <?php endif; ?>                
+                <?php if ($SESSION::exists('user_id')): ?>
+                    <?php include 'app/views/_global/menu-session.php'; ?>
+                <?php else: ?>
+                    <?php include 'app/views/_global/menu-no-session.php'; ?>
+                <?php endif; ?>
             </nav>
         </div>
     </header>
